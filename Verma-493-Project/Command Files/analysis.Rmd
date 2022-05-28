@@ -1,0 +1,193 @@
+---
+title: "Analysis"
+author: "Sneha Verma"
+date: "5/1/2022"
+output: word_document
+purpose: consists of all the steps involved in generating the regression analysis results.
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Import
+
+```{r}
+setwd('/Volumes/GoogleDrive-116166411084487006202/Shared drives/College Graduation Rates/Verma-493-Project')
+```
+
+
+```{r}
+
+library(readxl)
+
+race = read_excel('Analysis Data/race.xlsx')
+
+# Use this code if the line above does not work
+
+# race = read_excel('/Volumes/GoogleDrive-116166411084487006202/Shared drives/College Graduation Rates/Replication Documentation/Analysis Data/race.xlsx')
+
+head(race)
+```
+
+```{r}
+sex = ('Analysis Data/sex.xlsx')
+
+# Use this code if the line of code above does not work.
+# sex = read_excel('/Volumes/GoogleDrive-116166411084487006202/Shared drives/College Graduation Rates/Replication Documentation/Analysis Data/sex.xlsx')
+
+head(sex)
+```
+
+```{r}
+pell = read_excel('Analysis Data/pell.xlsx')
+
+# Use this line of code if the line above does not work.
+# pell = read_excel('/Volumes/GoogleDrive-116166411084487006202/Shared drives/College Graduation Rates/Replication Documentation/Importable Data/Final/pell.xlsx')
+
+head(pell)
+```
+
+## Econometric Analysis
+
+### Race
+
+The regression equation (without year) is:
+
+graduation rate = $\beta$$_{0}$ + $\beta$$_{1}$ * Black/African American + $\beta$$_{2}$ * Hispanic/Latino + $\beta$$_{3}$ * Native Hawaiian/Pacific Islander + $\beta$$_{4}$ * Non-resident Alien + $\beta$$_{5}$ * Two or more races + $\beta$$_{6}$ * White + $\beta$$_{8}$ * carleton college + $\beta$$_{9}$ * grinnell college + $\beta$$_{10}$ * lawrence university + $\beta$$_{11}$ * macalester college
+
+```{r}
+library(tidyverse)
+
+# First model without year
+
+race_model = lm(grad_rate ~ race + college, data = race)
+
+race_model
+```
+
+According to the results, the coefficients are:
+
+graduation rate = 0.86 + (-0.094) * Black/African American + (-0.02) * Hispanic/Latino + (-0.22) * Native Hawaiian/Pacific Islander + (0.024) * Non-resident Alien + (-0.004) * Two or more races + (0.053) * White +  (-0.061) * grinnell college + (-0.29) * lawrence university + (-0.013) * macalester college
+
+```{r}
+summary(race_model)
+```
+
+The results from the above command was used to format Table 1 in the Final Paper.
+
+The regression equation with year is:
+
+graduation rate = $\beta$$_{0}$ + $\beta$$_{1}$ * Black/African American + $\beta$$_{2}$ * Hispanic/Latino + $\beta$$_{3}$ * Native Hawaiian/Pacific Islander + $\beta$$_{4}$ * Non-resident Alien + $\beta$$_{5}$ * Two or more races + $\beta$$_{6}$ * White +  $\beta$$_{7}$ * year +$\beta$$_{8}$ * carleton college + $\beta$$_{9}$ * grinnell college + $\beta$$_{10}$ * lawrence university + $\beta$$_{11}$ * macalester college
+
+```{r}
+# Second model with year
+
+race_model_2 = lm(grad_rate ~ race + year + college, data = race)
+
+race_model_2
+```
+
+
+```{r}
+summary(race_model_2)
+```
+
+According to the results, the coefficients are:
+
+graduation rate = -6.55 + (-0.094) * Black/African American + (-0.02) * Hispanic/Latino + (-0.23) * Native Hawaiian/Pacific Islander + (0.025) * Non-resident Alien + (-0.005) * Two or more races + (0.054) * White + (0.004) * year + (-0.076) * grinnell college + (-0.30) * lawrence university + (-0.031) * macalester college
+
+Both the models exclude the Asian students and Carleton College.
+
+### Sex
+
+The regression equation without year is:
+
+graduation rate = $\beta$$_{0}$ + $\beta$$_{1}$ * male + $\beta$$_{2}$ * grinnell college + $\beta$$_{3}$ * lawrence university
+
+```{r}
+# First model without year
+
+sex_model = lm(grad_rate ~ sex + college, data = sex)
+
+sex_model
+```
+
+```{r}
+summary(sex_model)
+```
+
+The results from the above command was used to format Table 2 in the Final Paper.
+
+According to the results, the coefficients are:
+
+graduation rate = 0.90 + (-0.018) * male + (-0.082) * grinnell college + (-0.27) * lawrence university
+
+The regression equation with year is:
+
+graduation rate = $\beta$$_{0}$ + $\beta$$_{1}$ * male + $\beta$$_{2}$ * year + $\beta$$_{3}$ * grinnell college + $\beta$$_{4}$ * lawrence university
+
+```{r}
+# Second model with year
+
+sex_model_2 = lm(grad_rate ~ sex + year + college, data = sex)
+
+sex_model_2
+```
+
+```{r}
+summary(sex_model_2)
+```
+
+
+According to the results, the coefficients are:
+
+graduation rate = 0.58 + (-0.018) * male + (0.0002) * year + (-0.083) * grinnell college + (-0.27) * lawrence university
+
+These models exclude female students and Carleton College.
+
+### Pell Grant
+
+The regression equation without year is:
+
+graduation rate = $\beta$$_{0}$ + $\beta$$_{1}$ * Received neither + $\beta$$_{2}$ * Received loan only + $\beta$$_{3}$ * coe college + $\beta$$_{4}$ * grinnell college + $\beta$$_{5}$ * lawrence university
+
+```{r}
+# First model without year
+
+pell_model = lm(grad_rate ~ pell_status + college, data = pell)
+
+pell_model
+```
+
+```{r}
+summary(pell_model)
+```
+
+The results from the above command was used to format Table 3 in the Final Paper.
+
+According to the results, the coefficients are:
+
+graduation rate = 0.83 + (0.084) * Received neither + (0.063) * Received loan only + (-0.28) * coe college + (-0.072) * grinnell college + (-0.26) * lawrence university
+
+The regression equation with year is:
+
+graduation rate = $\beta$$_{0}$ + $\beta$$_{1}$ * Received neither + $\beta$$_{2}$ * Received loan only + $\beta$$_{3}$ * coe college + $\beta$$_{4}$ * grinnell college + $\beta$$_{5}$ * lawrence university + $\beta$$_{6}$ * year
+
+```{r}
+# Second model with year
+
+pell_model_2 = lm(grad_rate ~ pell_status + college + year, data = pell)
+
+pell_model_2
+```
+```{r}
+summary(pell_model_2)
+```
+
+
+According to the results, the coefficients are:
+
+graduation rate = -0.016 + (0.084) * Received neither + (0.063) * Received loan only + (-0.28) * coe college + (-0.074) * grinnell college + (-0.26) * lawrence university + (0.0004) * year
+
+These models exclude received federal pell grant students and Carleton College.

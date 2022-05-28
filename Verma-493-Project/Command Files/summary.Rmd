@@ -1,0 +1,598 @@
+---
+title: "Summary"
+author: "Sneha Verma"
+date: "4/27/2022"
+output: word_document
+purpose: consists of all the steps involved in generating summary statistics about the data.
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+setwd('/Volumes/GoogleDrive-116166411084487006202/Shared drives/College Graduation Rates/Verma-493-Project')
+```
+
+## Race
+
+```{r}
+library(readxl)
+
+race = read_excel('Analysis Data/race.xlsx')
+
+# Use this code if the aboce line of code does not work
+#race = read_excel('/Volumes/GoogleDrive-116166411084487006202/Shared drives/College Graduation Rates/Verma-493-Project/Analysis Data/race.xlsx')
+
+
+head(race)
+```
+
+
+```{r}
+# To verify, let us check the shape of the imported dataset.
+
+dim(race)
+
+```
+
+There are 468 rows and 4 columns. This is the dimension of the final appended dataset as well.
+
+### 1) college
+
+a. Frequency Table
+
+First check the range of colleges:
+
+```{r}
+factor(race$college)
+```
+
+There are 4 levels of colleges: carleton college, grinnell college, lawrence university, macalester college.
+
+Now, create a frequency table:
+
+```{r}
+table(race$college)
+```
+
+It is as follows:
+
+Carleton College: 126
+Grinnell College: 126
+Lawrence University: 126
+Macalester College: 90
+
+The reason that the frequency of Macalester College is less than those of the other colleges is because there are fewer categories of race in Macalester College.
+
+Macalester College is missing the categories of White and Non-resident Alien students. During the regression process, while calculating the coefficients for White and Non-resident Alien students, the observations from Macalester College will not be included.
+
+```{r}
+#install.packages('plyr')
+# Please run the above code if this is the first time running the script.
+
+library(plyr)
+```
+
+```{r}
+count(race ,'college')
+```
+
+b. Bar Chart
+
+```{r}
+library(ggplot2)
+```
+
+
+```{r}
+college_r = table(race$college)
+
+barplot(college_r, main='Distribution of Colleges (Race)', xlab = 'College Name', ylab = 'Frequency')
+```
+
+### 2) race
+
+a. Frequency Table
+
+First, range of race:
+
+```{r}
+factor(race$race)
+```
+
+There are seven factors of race:
+Hispanic/Latino, Asian, Black/African American, Native Hawaiian/Pacific Islander, Two or more races, Non-resident Alien, and White.
+
+```{r}
+table(race$race)
+```
+
+The instances are as follows:
+Asian: 72
+Black/African American: 72
+Hispanic/Latino: 72
+Native Hawaiian/Pacific Islander: 72
+Non-resident Alien: 54
+Two or more races: 72
+White: 54
+
+As mentioned before, the reason for the lower frequencies of White and Non-resident Alien students is that Macalester College did not provide graduation rates for these groups of students.
+
+```{r}
+count(race, 'race')
+```
+
+b. Bar Chart
+
+```{r}
+race_r = table(race$race)
+
+
+barplot(race_r, main='Distribution of Race (Race)', xlab = 'Race', ylab = 'Frequency', cex.names = 0.5)
+```
+
+### 3) year
+
+a. Summary Statistics
+
+First, range of years:
+
+```{r}
+factor(race$year)
+```
+
+There are 18 levels ranging from 2000 to 2017.
+
+Since this is a quantitative variable, I will look at the basic summary statistics:
+
+
+```{r}
+summary(race$year)
+```
+
+It is as follows:
+
+Minimum = 2000
+25th percentile = 2004
+Median = 2008
+75th percentile = 2013
+Maximum = 2017
+Mean = 2008
+
+```{r}
+sd(race$year)
+```
+
+Standard Deviation = 5.19
+
+b. Histogram
+
+```{r}
+hist(race$year,xlab = "Year", breaks = 5, labels = TRUE, main = "Histogram of Year", ylim = c(0,180))
+```
+
+### 4) grad_rate
+
+a. Summary Statistics
+
+```{r}
+summary(race$grad_rate)
+```
+
+The values are as follows:
+Minimum = 0%
+25th percentile = 69%
+Median = 81.8%
+75th percentile = 87.5%
+Maximum = 100%
+195 missing values
+Mean = 79%
+
+```{r}
+race_2 = race
+race_2[is.na(race_2)] = 0
+
+sd(race_2$grad_rate)
+```
+
+To get the standard deviation of graduation rates, all missing values need to be imputed. I replaced all missing values with 0.
+
+Standard deviation = 40%
+
+Summary on categorical variables:
+
+```{r}
+aggregate(race_2$grad_rate, by=list(race_2$race), FUN = mean)
+```
+
+
+b. Histogram
+
+```{r}
+hist(race$grad_rate,xlab = "Graduation Rate", labels = TRUE, main = "Histogram of Graduation Rates", ylim = c(0, 105))
+```
+
+
+
+## Sex
+
+```{r}
+
+sex = read_excel('Analysis Data/sex.xlsx')
+
+# Use this code if the above line of code does not work
+#sex = read_excel('/Volumes/GoogleDrive-116166411084487006202/Shared drives/College Graduation Rates/Verma-493-Project/Analysis Data/sex.xlsx')
+
+head(sex)
+```
+
+```{r}
+# To verify, let us check the shape of the imported dataset.
+
+dim(sex)
+```
+
+There are 108 rows and 4 columns. This is the dimension of the final appended dataset as well.
+
+### 1) college
+
+a. Frequency Table
+
+First check the range of colleges:
+
+```{r}
+factor(sex$college)
+```
+
+There are 3 levels of colleges: carleton college, grinnell college, lawrence university.
+
+Now, create a frequency table:
+
+```{r}
+table(sex$college)
+```
+
+It is as follows:
+
+Carleton College: 36
+Grinnell College: 36
+Lawrence University: 36
+
+The frequencies of all colleges are the same because of the steps taken during the processing stage of the research. By appending and pivoting the datasets, the same number of instances were created for each college.
+
+
+```{r}
+#install.packages('plyr')
+library(plyr)
+```
+
+```{r}
+count(sex, 'college')
+```
+
+b. Bar Chart
+
+```{r}
+library(ggplot2)
+```
+
+
+```{r}
+college_s = table(sex$college)
+
+barplot(college_s, main='Distribution of Colleges (Sex)', xlab = 'College Name', ylab = 'Frequency')
+```
+
+### 2) sex
+
+a. Frequency Table
+
+First, range of sex:
+
+```{r}
+factor(sex$sex)
+```
+
+There are two factors of sex:
+male and female.
+
+```{r}
+table(sex$sex)
+```
+
+The instances are as follows:
+female: 54
+male: 54
+
+Similar to the frequencies of colleges, the frequencies of each sex category are the same because of the steps taken during the processing stage to ensure that the graduation rates for each gender are reported for each college.
+
+```{r}
+count(sex, 'sex')
+```
+
+b. Bar Chart
+
+```{r}
+sex_s = table(sex$sex)
+
+barplot(sex_s, main='Distribution of Sex (Sex)', xlab = 'Sex', ylab = 'Frequency')
+```
+
+### 3) year
+
+a. Summary Statistics
+
+First, range of years:
+
+```{r}
+factor(sex$year)
+```
+
+There are 18 levels ranging from 2000 to 2017.
+
+Since this is a quantitative variable, I will look at the basic summary statistics:
+
+
+```{r}
+summary(sex$year)
+```
+
+It is as follows:
+
+Minimum = 2000
+25th percentile = 2004
+Median = 2008
+75th percentile = 2013
+Maximum = 2017
+Mean = 2008
+
+```{r}
+sd(sex$year)
+```
+
+Standard Deviation = 5.21
+
+b. Histogram
+
+```{r}
+hist(sex$year,xlab = "Year", breaks = 5, labels = TRUE, main = "Histogram of Year")
+```
+
+### 4) grad_rate
+
+a. Summary Statistics
+
+```{r}
+summary(sex$grad_rate)
+```
+
+The values are as follows:
+Minimum = 53%
+25th percentile = 68%
+Median = 84.2%
+75th percentile = 88.4%
+Maximum = 94.9%
+28 missing values
+Mean = 78.7%
+
+```{r}
+sex_2 = sex
+sex_2[is.na(sex_2)] = 0
+
+sd(sex_2$grad_rate)
+```
+
+To get the standard deviation of graduation rates, all missing values need to be imputed. I replaced all missing values with 0.
+
+Standard deviation = 36%
+
+Summary on categorical variables:
+
+```{r}
+aggregate(sex_2$grad_rate, by=list(sex_2$sex), FUN = mean)
+```
+
+```{r}
+aggregate(sex_2$grad_rate, by=list(sex_2$college), FUN = mean)
+```
+
+
+b. Histogram
+
+```{r}
+hist(sex$grad_rate,xlab = "Graduation Rate", labels = TRUE, main = "Histogram of Graduation Rates", ylim = c(0, 30))
+```
+
+
+## Pell grant
+
+```{r}
+
+pell = read_excel('Analysis Data/pell.xlsx')
+
+# Use this code if the line of code above does not work.
+#pell = read_excel('/Volumes/GoogleDrive-116166411084487006202/Shared drives/College Graduation Rates/Replication Documentation/Importable Data/pell.xlsx')
+
+head(pell)
+```
+
+```{r}
+# To verify, let us check the shape of the imported dataset.
+
+dim(pell)
+```
+
+There are 156 rows and 4 columns. This is the dimension of the final appended dataset as well.
+
+### 1) college
+
+a. Frequency Table
+
+First check the range of colleges:
+
+```{r}
+factor(pell$college)
+```
+
+There are 3 levels of colleges: carleton college, coe college, grinnell college, lawrence university.
+
+Now, create a frequency table:
+
+```{r}
+table(pell$college)
+```
+
+It is as follows:
+
+Carleton College: 39
+Coe College: 39
+Grinnell College: 39
+Lawrence University: 39
+
+The frequencies of all colleges are the same because of the steps taken during the processing stage of the research. By appending and pivoting the datasets, the same number of instances were created for each college.
+
+
+```{r}
+#install.packages('plyr')
+library(plyr)
+```
+
+```{r}
+count(pell, 'college')
+```
+
+b. Bar Chart
+
+```{r}
+library(ggplot2)
+```
+
+
+```{r}
+college_p = table(pell$college)
+
+barplot(college_p, main='Distribution of Colleges (Pell)', xlab = 'College Name', ylab = 'Frequency', cex.names = 0.7)
+```
+
+### 2) pell_status
+
+a. Frequency Table
+
+First, range of pell status:
+
+```{r}
+factor(pell$pell_status)
+```
+
+There are three factors of pell status:
+Received Federal Pell Grant
+Received Subsidized Stafford Loan, No Pell grant
+Received Neither Pell Grant nor Stafford Loan
+
+```{r}
+table(pell$pell_status)
+```
+
+The instances are as follows:
+Received Federal Pell Grant_ 52
+Received Subsidized Stafford Loan, No Pell grant: 52
+Received Neither Pell Grant nor Stafford Loan: 52
+
+Similar to the frequencies of colleges, the frequencies of each category of Pell status are the same because of the steps taken during the processing stage to ensure that the graduation rates for each pell status are reported for each college.
+
+```{r}
+count(pell, 'pell_status')
+```
+
+b. Bar Chart
+
+```{r}
+pell_p = table(pell$pell_status)
+
+barplot(pell_p, main='Distribution of Pell Status (Pell)', xlab = 'Pell Status', ylab = 'Frequency', cex.names = 0.5)
+```
+
+### 3) year
+
+a. Summary Statistics
+
+First, range of years:
+
+```{r}
+factor(pell$year)
+```
+
+There are 13 levels ranging from 2005 to 2017.
+
+Since this is a quantitative variable, I will look at the basic summary statistics:
+
+
+```{r}
+summary(pell$year)
+```
+
+It is as follows:
+
+Minimum = 2005
+25th percentile = 2008
+Median = 2011
+75th percentile = 2014
+Maximum = 2017
+Mean = 2011
+
+```{r}
+sd(pell$year)
+```
+
+Standard Deviation = 3.75
+
+b. Histogram
+
+```{r}
+hist(pell$year,xlab = "Year", breaks = 5, ylim = c(0,25), labels=TRUE, main = "Histogram of Year")
+```
+
+### 4) grad_rate
+
+a. Summary Statistics
+
+```{r}
+summary(pell$grad_rate)
+```
+
+The values are as follows:
+Minimum = 44.9%
+25th percentile = 61.6%
+Median = 72%
+75th percentile = 86.8%
+Maximum = 100%
+51 missing values
+Mean = 73.4%%
+
+```{r}
+pell_2 = pell
+pell_2[is.na(pell_2)] = 0
+
+sd(pell_2$grad_rate)
+```
+
+To get the standard deviation of graduation rates, all missing values need to be imputed. I replaced all missing values with 0.
+
+Standard deviation = 36%
+
+Summary on categorical variables:
+
+```{r}
+aggregate(pell_2$grad_rate, by=list(pell_2$pell_status), FUN = mean)
+```
+
+```{r}
+aggregate(pell_2$grad_rate, by=list(pell_2$college), FUN = mean)
+```
+
+b. Histogram
+
+```{r}
+hist(pell$grad_rate,xlab = "Graduation Rate", labels = TRUE, main = "Histogram of Graduation Rates", ylim = c(0, 25))
+```
