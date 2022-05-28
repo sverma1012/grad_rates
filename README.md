@@ -203,3 +203,10 @@ My research studies the influence of student characteristics such as gender, rac
 		Please note that each of these command files can be “knitted” to produce Word documents with the comments, code, and results. To do so, click the ‘Knit’ button at the top center of the screen.
 	</p>
 </blockquote>
+
+<blockquote>
+	<p>
+		To convert the Rmd files into R files, run the command ‘knitr:purl(‘Command Files’, documentation = 0) in the console.
+	</p>
+</blockquote>
+	
