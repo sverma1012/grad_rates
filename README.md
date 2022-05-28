@@ -180,19 +180,26 @@ My research studies the influence of student characteristics such as gender, rac
 <hr>
 
 ## Replicating the Study
+<blockquote>
+	<p>
+		To replicate the research, use R Studio and the R programming language. Installation of various packages will be required; they are addressed within the command files, therefore, please read the command files to understand when and how to do the required installations.
+	</p>
+</blockquote>
 
-<p>
-	To replicate the research, use R Studio and the R programming language. Installation of various packages will be required; they are addressed within the command files, therefore, please read the command files to understand when and how to do the required installations.
-</p>
+<blockquote>
+	<p>
+		Copy the main folder (“Verma-493-Project”) onto your computer with the same layout as described above. The working directory should be the main folder- a command is run in each command file to ensure that the correct working directory is set to ensure the proper execution of the code. Please ensure that the path to the working directory in the command files corresponds with the path in your computer.
+	</p>
+</blockquote>
 
-<p>
-	Copy the main folder (“Verma-493-Project”) onto your computer with the same layout as described above. The working directory should be the main folder- a command is run in each command file to ensure that the correct working directory is set to ensure the proper execution of the code. Please ensure that the path to the working directory in the command files corresponds with the path in your computer.
-</p>
+<blockquote>
+	<p>
+		First, run the processing.do command file to ensure that the importable data files are wrangled to usable forms for the statistical and regression analysis. The outputs from this command file are three datasets (racec.xlsx, sex.xlsx, pell.xlsx) that will be saved in the ‘Analysis Data’ folder. Second, the summary.do command file should be run to produce frequency tables and histograms that describe each variable. There are no external outputs from this command file. Lastly, the analysis.do command file should be run to retrieve the regression results. No external output will be generated from this command file.
+	</p>
+</blockquote>
 
-<p>
-	First, run the processing.do command file to ensure that the importable data files are wrangled to usable forms for the statistical and regression analysis. The outputs from this command file are three datasets (racec.xlsx, sex.xlsx, pell.xlsx) that will be saved in the ‘Analysis Data’ folder. Second, the summary.do command file should be run to produce frequency tables and histograms that describe each variable. There are no external outputs from this command file. Lastly, the analysis.do command file should be run to retrieve the regression results. No external output will be generated from this command file.
-</p>
-
-<p>
-	Please note that each of these command files can be “knitted” to produce Word documents with the comments, code, and results. To do so, click the ‘Knit’ button at the top center of the screen.
-</p>
+<blockquote>
+	<p>
+		Please note that each of these command files can be “knitted” to produce Word documents with the comments, code, and results. To do so, click the ‘Knit’ button at the top center of the screen.
+	</p>
+</blockquote>
