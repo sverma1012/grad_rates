@@ -194,7 +194,7 @@ My research studies the influence of student characteristics such as gender, rac
 
 <blockquote>
 	<p>
-		First, run the processing.do command file to ensure that the importable data files are wrangled to usable forms for the statistical and regression analysis. The outputs from this command file are three datasets (racec.xlsx, sex.xlsx, pell.xlsx) that will be saved in the ‘Analysis Data’ folder. Second, the summary.do command file should be run to produce frequency tables and histograms that describe each variable. There are no external outputs from this command file. Lastly, the analysis.do command file should be run to retrieve the regression results. No external output will be generated from this command file.
+		First, run the processing.do command file to ensure that the importable data files are wrangled to usable forms for the statistical and regression analysis. The outputs from this command file are three datasets (race.xlsx, sex.xlsx, pell.xlsx) that will be saved in the ‘Analysis Data’ folder. Second, the summary.do command file should be run to produce frequency tables and histograms that describe each variable. There are no external outputs from this command file. Lastly, the analysis.do command file should be run to retrieve the regression results. No external output will be generated from this command file.
 	</p>
 </blockquote>
 
