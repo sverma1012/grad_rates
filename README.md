@@ -1,3 +1,5 @@
+![Status Update](https://img.shields.io/badge/Status-Complete-green) ![GitHub top language](https://img.shields.io/github/languages/top/sverma1012/grad_rates?color=blue) ![GitHub language count](https://img.shields.io/github/languages/count/sverma1012/grad_rates?color=green&logoColor=green)
+
 # Graduating Midwest Liberal Arts Colleges :mortar_board:
 ### The influence of student characteristics on graduation rates 
  
